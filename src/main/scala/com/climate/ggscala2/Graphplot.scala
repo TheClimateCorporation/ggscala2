@@ -66,9 +66,9 @@ trait Graphplot {
       "theme_void()",
       tt,
       "geom_segment(data = df_graph, aes(x = xstart, y = ystart, xend = xend, yend = yend), " +
-      "arrow = arrow(length = unit(sz[3],'cm'), type='closed'), color = 'dark grey')",
-      "geom_point(data = df_graph2, aes(x=x, y=y), colour = 'light grey', size = sz[1])",
-      "geom_text(data = df_graph2, aes(x=x, y=y, label = z), size = sz[2])")
+      "arrow = arrow(length = unit(sz_graph[3],'cm'), type='closed'), color = 'dark grey')",
+      "geom_point(data = df_graph2, aes(x=x, y=y), colour = 'light grey', size = sz_graph[1])",
+      "geom_text(data = df_graph2, aes(x=x, y=y, label = z), size = sz_graph[2])")
 
     r.set("cmd_graphplot", cmd)
     r.eval(cmd.head + " = " + cmd.tail.filter(_ != "").mkString(" + "))
