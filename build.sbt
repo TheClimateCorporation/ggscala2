@@ -21,7 +21,7 @@ lazy val root = (project in file(".")).
 	settings(
 		name := "ggscala2",
 		organization := "com.climate",
-		scalaVersion := "2.11.8",
+		scalaVersion := "2.11.11",
 		version := "0.0.3",
 		libraryDependencies ++= Dependencies,
 		resolvers := Resolvers,
