@@ -17,6 +17,7 @@ package com.climate.ggscala2.Plots
 
 import breeze.linalg.DenseMatrix
 import breeze.numerics.{cos, pow, sin, sqrt}
+import com.climate.ggscala2.Window
 
 import scala.math.Pi
 import org.ddahl.rscala.RClient
@@ -26,7 +27,9 @@ trait Graphplot {
                                   x: DenseMatrix[Boolean],
                                   y: Array[Double],
                                   z: Array[String],
-                                  title: String): Unit = {
+                                  title: String,
+                                  xlim: Option[(Double, Double)],
+                                  ylim: Option[(Double, Double)]): Unit = {
     val n: Int = z.length
     require(x.rows == n && x.cols == n, "x should be a matrix of size " + n + " * " + n)
     val v: Array[Int] = (0 until n).toArray
@@ -60,11 +63,14 @@ trait Graphplot {
     r.eval("df_graph2 = data.frame(x = xraw_graph, y = yraw_graph, z = z_graph)")
 
     val tt: String = if (title == "") "" else "ggtitle('" + title + "') "
+    val (xb, yb): (String, String) = (Window.axisLimits("x", xlim), Window.axisLimits("y", ylim))
 
     val cmd: Array[String] = Array("graphplot", "ggplot()",
       "coord_fixed(ratio = 1, xlim = c(-0.1, 1.1), ylim = c(-0.1, 1.1))",
       "theme_void()",
       tt,
+      xb,
+      yb,
       "geom_segment(data = df_graph, aes(x = xstart, y = ystart, xend = xend, yend = yend), " +
       "arrow = arrow(length = unit(sz_graph[3],'cm'), type='closed'), color = 'dark grey')",
       "geom_point(data = df_graph2, aes(x=x, y=y), colour = 'light grey', size = sz_graph[1])",

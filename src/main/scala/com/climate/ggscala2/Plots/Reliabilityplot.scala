@@ -16,6 +16,7 @@
 package com.climate.ggscala2.Plots
 
 import breeze.numerics.{Inf, abs, pow, round}
+import com.climate.ggscala2.Window
 import org.ddahl.rscala.RClient
 
 trait Reliabilityplot {
@@ -25,9 +26,12 @@ trait Reliabilityplot {
                                         z: Option[Double],
                                         xlab: String,
                                         ylab: String,
-                                        title: String): Unit = {
+                                        title: String,
+                                        xlim: Option[(Double, Double)],
+                                        ylim: Option[(Double, Double)]): Unit = {
 
     val tt: String = if (title == "") "" else "ggtitle('" + title + "') "
+    val (xb, yb): (String, String) = (Window.axisLimits("x", xlim), Window.axisLimits("y", ylim))
 
     val zlab: String = z match {
       case Some(_) => "BSS"
@@ -146,6 +150,8 @@ trait Reliabilityplot {
       "xlab('" + xlab + "')",
       "ylab('" + ylab + "')",
       tt,
+      xb,
+      yb,
       "geom_label(data = data.frame(x = 0.2, y = 0.95, z = '" + labelB + "'), aes(x = x, y = y, label = z)) ",
       pl)
 

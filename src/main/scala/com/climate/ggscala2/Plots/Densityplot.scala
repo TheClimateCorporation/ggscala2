@@ -15,6 +15,7 @@
 
 package com.climate.ggscala2.Plots
 
+import com.climate.ggscala2.Window
 import org.ddahl.rscala.RClient
 
 trait Densityplot {
@@ -24,7 +25,9 @@ trait Densityplot {
                                     z: Option[Array[String]],
                                     xlab: String,
                                     zlab: String,
-                                    title: String): Unit = {
+                                    title: String,
+                                    xlim: Option[(Double, Double)],
+                                    ylim: Option[(Double, Double)]): Unit = {
 
     val tt: String = if (title == "") "" else "ggtitle('" + title + "') "
 
@@ -43,12 +46,16 @@ trait Densityplot {
 
     val gu: String = if (zlab == "") "guides(colour = 'none', fill = 'none') " else ""
 
+    val (xb, yb): (String, String) = (Window.axisLimits("x", xlim), Window.axisLimits("y", ylim))
+
     val cmd: Array[String] = Array("densityplot" , mn ,
       "geom_density(alpha = transparencyAlpha) " ,
       "xlab('" + xlab + "') ",
       "ylab('density') ",
       tt,
       gu,
+      xb,
+      yb,
       "scale_color_manual(values = paletteLine, name = '" + zlab + "') ",
       "scale_fill_manual(values = paletteFill, name = '" + zlab + "') ")
 

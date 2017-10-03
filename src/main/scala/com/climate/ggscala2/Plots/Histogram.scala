@@ -15,6 +15,7 @@
 
 package com.climate.ggscala2.Plots
 
+import com.climate.ggscala2.Window
 import org.ddahl.rscala.RClient
 
 trait Histogram {
@@ -25,7 +26,9 @@ trait Histogram {
                                   usePercentileCutpoints: Boolean,
                                   xlab: String,
                                   zlab: String,
-                                  title: String): Unit = {
+                                  title: String,
+                                  xlim: Option[(Double, Double)],
+                                  ylim: Option[(Double, Double)]): Unit = {
 
     r.set("x_hist", x)
 
@@ -47,12 +50,15 @@ trait Histogram {
 
     val tt: String = if (title == "") "" else "ggtitle('" + title + "') "
     val zl: String = if (zlab == "") "guides(colour = 'none') " else ""
+    val (xb, yb): (String, String) = (Window.axisLimits("x", xlim), Window.axisLimits("y", ylim))
 
     val cmd: Array[String] = Array("histogram",
       "ggplot(df_hist, " + aes + ") ",
       "stat_bin(colour = 'white', bins = " + nBins + binw + ")",
       "xlab('" + xlab + "') ",
       tt,
+      xb,
+      yb,
       "scale_fill_manual(values = paletteFill, name = '" + zlab + "') ",
       zl)
 

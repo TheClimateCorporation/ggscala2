@@ -15,6 +15,7 @@
 
 package com.climate.ggscala2.Plots
 
+import com.climate.ggscala2.Window
 import org.ddahl.rscala.RClient
 
 trait Lineplot {
@@ -27,6 +28,8 @@ trait Lineplot {
                                  ylab: String,
                                  zlab: String,
                                  title: String,
+                                 xlim: Option[(Double, Double)],
+                                 ylim: Option[(Double, Double)],
                                  drawLine: Boolean,
                                  drawPoints: Boolean): Unit = {
 
@@ -34,6 +37,7 @@ trait Lineplot {
     val gp: String = if (drawPoints) "geom_point() " else ""
     val gl: String = if (drawLine) "geom_line() " else ""
     val tt: String = if (title == "") "" else "ggtitle('" + title + "') "
+    val (xb, yb): (String, String) = (Window.axisLimits("x", xlim), Window.axisLimits("y", ylim))
 
     val xx: Array[Double] = x match {
       case Some(a) => a
@@ -58,6 +62,8 @@ trait Lineplot {
       "xlab('" + xlab + "')",
       "ylab('" + ylab + "')",
       tt,
+      xb,
+      yb,
       "scale_color_manual(values = paletteLine, name = '" + zlab + "') ",
       zl)
 

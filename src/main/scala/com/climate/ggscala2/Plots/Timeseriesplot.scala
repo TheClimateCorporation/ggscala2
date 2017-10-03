@@ -15,6 +15,7 @@
 
 package com.climate.ggscala2.Plots
 
+import com.climate.ggscala2.Window
 import org.ddahl.rscala.RClient
 import org.joda.time.DateTime
 
@@ -28,11 +29,14 @@ trait Timeseriesplot {
                                        ymax: Option[Array[Double]],
                                        xlab: String,
                                        ylab: String,
-                                       title: String): Unit = {
+                                       title: String,
+                                       xlim: Option[(Double, Double)],
+                                       ylim: Option[(Double, Double)]): Unit = {
 
     require(y.length == x.length, "Incompatible lengths of x and y")
 
     val tt: String = if (title == "") "" else "ggtitle('" + title + "') "
+    val (xb, yb): (String, String) = (Window.axisLimits("x", xlim), Window.axisLimits("y", ylim))
 
     r.set("xs", x.map(_.toString))
     r.eval("x_timeseries = as.Date(xs)")
@@ -75,6 +79,8 @@ trait Timeseriesplot {
       "xlab('" + xlab + "')",
       "ylab('" + ylab + "')",
       tt,
+      xb,
+      yb,
       "scale_color_manual(values = paletteLine)")
 
     r.set("cmd_timeseriesplot", cmd)

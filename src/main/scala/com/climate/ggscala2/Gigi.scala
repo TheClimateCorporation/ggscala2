@@ -111,9 +111,11 @@ object Gigi extends Daemon with IO with Spooler with Screen with
                ylab: String = "y",
                zlab: String = "",
                title: String = "",
+               xlim: Option[(Double, Double)] = None,
+               ylim: Option[(Double, Double)] = None,
                drawPoints: Boolean = false,
                position: Option[(Int, Int)] = None): Any = {
-    lineplot(rDaemon, x, y, z, xlab, ylab, zlab, title, drawLine = true, drawPoints)
+    lineplot(rDaemon, x, y, z, xlab, ylab, zlab, title, xlim, ylim, drawLine = true, drawPoints)
     spool("lineplot", position)
   }
 
@@ -135,8 +137,10 @@ object Gigi extends Daemon with IO with Spooler with Screen with
                   ylab: String = "y",
                   zlab: String = "",
                   title: String = "",
+                  xlim: Option[(Double, Double)] = None,
+                  ylim: Option[(Double, Double)] = None,
                   position: Option[(Int, Int)] = None): Any = {
-    lineplot(rDaemon, Option(x), y, z, xlab, ylab, zlab, title, drawLine = false, drawPoints = true)
+    lineplot(rDaemon, Option(x), y, z, xlab, ylab, zlab, title, xlim, ylim, drawLine = false, drawPoints = true)
     spool("scatterplot", position)
   }
 
@@ -162,8 +166,10 @@ object Gigi extends Daemon with IO with Spooler with Screen with
                      xlab: String = "time",
                      ylab: String = "y",
                      title: String = "",
+                     xlim: Option[(Double, Double)] = None,
+                     ylim: Option[(Double, Double)] = None,
                      position: Option[(Int, Int)] = None): Any = {
-    timeseriesplot(rDaemon, x, y, z, ymin, ymax, xlab, ylab, title)
+    timeseriesplot(rDaemon, x, y, z, ymin, ymax, xlab, ylab, title, xlim, ylim)
     spool("timeseriesplot", position)
   }
 
@@ -183,8 +189,10 @@ object Gigi extends Daemon with IO with Spooler with Screen with
                   xlab: String = "x",
                   zlab: String = "",
                   title: String = "",
+                  xlim: Option[(Double, Double)] = None,
+                  ylim: Option[(Double, Double)] = None,
                   position: Option[(Int, Int)] = None): Any = {
-    densityplot(rDaemon, x, z, xlab, zlab, title)
+    densityplot(rDaemon, x, z, xlab, zlab, title, xlim, ylim)
     spool("densityplot", position)
   }
 
@@ -245,9 +253,11 @@ object Gigi extends Daemon with IO with Spooler with Screen with
                   z: Array[Double],
                   xlab: String,
                   ylab: String,
-                  zlab: String): Any = {
+                  zlab: String,
+                  xlim: Option[(Double, Double)],
+                  ylim: Option[(Double, Double)]): Any = {
     surfaceplot(layerType = List("surface"), x = List(x), y = List(y), z = List(z),
-      xlim = None, ylim = None, zlim = None, xlab = xlab, ylab = ylab, zlab = zlab,
+      xlim = xlim, ylim = ylim, zlim = None, xlab = xlab, ylab = ylab, zlab = zlab,
       pch = None, cex = None, text = None, position = None)
   }
 
@@ -269,8 +279,10 @@ object Gigi extends Daemon with IO with Spooler with Screen with
                       xlab: String = "estimated probability",
                       ylab: String = "observed frequency",
                       title: String = "",
+                      xlim: Option[(Double, Double)] = None,
+                      ylim: Option[(Double, Double)] = None,
                       position: Option[(Int, Int)] = None): Any = {
-    reliabilityplot(rDaemon, x, y, z, xlab, ylab, title)
+    reliabilityplot(rDaemon, x, y, z, xlab, ylab, title, xlim, ylim)
     spool("reliabilityplot", position)
   }
 
@@ -288,8 +300,10 @@ object Gigi extends Daemon with IO with Spooler with Screen with
                 y: Array[Double] = Array(10.0, 3.0, 0.2, 0.1),
                 z: Array[String],
                 title: String = "",
+                xlim: Option[(Double, Double)] = None,
+                ylim: Option[(Double, Double)] = None,
                 position: Option[(Int, Int)] = None): Any = {
-    graphplot(rDaemon, x, y, z, title)
+    graphplot(rDaemon, x, y, z, title, xlim, ylim)
     spool("graphplot", position)
   }
 
@@ -313,8 +327,10 @@ object Gigi extends Daemon with IO with Spooler with Screen with
                 xlab: String = "",
                 zlab: String = "",
                 title: String = "",
+                xlim: Option[(Double, Double)] = None,
+                ylim: Option[(Double, Double)] = None,
                 position: Option[(Int, Int)] = None): Any = {
-    histogram(rDaemon, x, z, nBins, usePercentileCutpoints, xlab, zlab, title)
+    histogram(rDaemon, x, z, nBins, usePercentileCutpoints, xlab, zlab, title, xlim, ylim)
     spool("histogram", position)
   }
 
