@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and limitations under the License.
  */
 
-package com.climate.ggscala2
+package com.climate.ggscala2.Plots
 
 import breeze.linalg.DenseMatrix
 import breeze.numerics.{cos, pow, sin, sqrt}

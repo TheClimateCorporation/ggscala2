@@ -16,11 +16,13 @@
 package com.climate.ggscala2
 
 import java.io.File
+
 import breeze.linalg.DenseMatrix
+import com.climate.ggscala2.Plots._
 import org.joda.time.DateTime
 
 object Gigi extends Daemon with IO with Spooler with Screen with
-  Lineplot with Timeseriesplot with Densityplot with Surfaceplot with ReliabilityPlot with Graphplot with Histogram {
+  Lineplot with Timeseriesplot with Densityplot with Surfaceplot with Reliabilityplot with Graphplot with Histogram {
 
   var inline: Option[String => Any] = None
 
@@ -62,10 +64,9 @@ object Gigi extends Daemon with IO with Spooler with Screen with
     plotBuffer(rDaemon)
     assert(outputFileType(myFile.getName) == "png", "File must be a png")
     inline match {
-      case None => {
+      case None =>
         render(myFile, scale = screenScale)
         "Plot sent to JPanel"
-      }
       case Some(f) => f(renderHTML(myFile, scale = screenScale))
     }
   }
