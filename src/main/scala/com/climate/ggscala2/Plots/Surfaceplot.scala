@@ -177,17 +177,6 @@ trait Surfaceplot {
       }
     })
 
-    /*
-    r.eval("surfaceplot = ggplot(df_surface[[mainLayer]], aes(x = x, y = y)) ")
-    for (newBase <- baseSpecs ++ paletteSpecs) {
-      val cmd: String = "surfaceplot = surfaceplot " + newBase
-      r.eval(cmd)
-    }
-    for (newLayer <- layerSpecs) {
-      val cmd: String = "surfaceplot = surfaceplot " + newLayer
-      r.eval(cmd)
-    }
-    */
     val cmd: Array[String] = Array("surfaceplot",
       "ggplot(df_surface[[mainLayer_surface]], aes(x = x, y = y))") ++ baseSpecs ++ paletteSpecs ++ layerSpecs
 
