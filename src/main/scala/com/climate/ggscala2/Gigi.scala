@@ -16,10 +16,9 @@
 package com.climate.ggscala2
 
 import java.io.File
-
+import java.time.OffsetDateTime
 import breeze.linalg.DenseMatrix
 import com.climate.ggscala2.Plots._
-import org.joda.time.DateTime
 
 object Gigi extends Daemon with IO with Spooler with Screen with
   Lineplot with Timeseriesplot with Densityplot with Surfaceplot with Reliabilityplot with Graphplot with Histogram {
@@ -158,7 +157,7 @@ object Gigi extends Daemon with IO with Spooler with Screen with
     * @param position (row, col) position of plot in spooler
     * @return Unit if position is provided; otherwise, Unit if inline = None, or Any if inline has been changed by user
     */
-  def timeseriesplot(x: Array[DateTime],
+  def timeseriesplot(x: Array[OffsetDateTime],
                      y: Array[Double],
                      z: Option[Array[Double]] = None,
                      ymin: Option[Array[Double]] = None,
