@@ -17,6 +17,8 @@ package com.climate.ggscala2.Plots
 
 import com.climate.ggscala2.Window
 import org.ddahl.rscala.RClient
+import java.time.OffsetDateTime
+import java.time.format.DateTimeFormatter
 
 trait Timeseriesplot {
 
