@@ -6,9 +6,7 @@ val Dependencies = Seq(
 	"org.scalatest" %% "scalatest" % "3.0.1" % Test,
 	"org.scalanlp" %% "breeze" % "0.13",
 	"org.scalanlp" %% "breeze-natives" % "0.13",
-	"org.ddahl" % "rscala_2.11" % "2.3.1",
-	"joda-time" % "joda-time" % "2.9.3",
-	"org.joda" % "joda-convert" % "1.8.1"
+	"org.ddahl" % "rscala_2.11" % "2.3.1"
 )
 
 val Resolvers = Seq(
