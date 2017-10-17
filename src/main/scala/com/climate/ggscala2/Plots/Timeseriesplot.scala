@@ -17,12 +17,13 @@ package com.climate.ggscala2.Plots
 
 import com.climate.ggscala2.Window
 import org.ddahl.rscala.RClient
-import org.joda.time.DateTime
+import java.time.OffsetDateTime
+import java.time.format.DateTimeFormatter
 
 trait Timeseriesplot {
 
   private[ggscala2] def timeseriesplot(r: RClient,
-                                       x: Array[DateTime],
+                                       x: Array[OffsetDateTime],
                                        y: Array[Double],
                                        z: Option[Array[Double]],
                                        ymin: Option[Array[Double]],
@@ -37,8 +38,8 @@ trait Timeseriesplot {
 
     val tt: String = if (title == "") "" else "ggtitle('" + title + "') "
     val (xb, yb): (String, String) = (Window.axisLimits("x", xlim), Window.axisLimits("y", ylim))
-
-    r.set("xs", x.map(_.toString))
+    
+    r.set("xs", x.map(_.format(DateTimeFormatter.ISO_LOCAL_DATE)))
     r.eval("x_timeseries = as.Date(xs)")
     r.set("y_timeseries", y)
 
